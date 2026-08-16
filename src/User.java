@@ -2,15 +2,15 @@ import java.util.Optional;
 
 public class User implements Cloneable {
 
-    private final int id;
+    private final long id;
     private String username;
 
-    public User(int id, String username) {
+    public User(long id, String username) {
         this.id = id;
         this.username = username;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
