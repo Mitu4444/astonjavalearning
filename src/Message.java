@@ -1,4 +1,3 @@
-
 public final class Message {
 
     private final String text;
@@ -6,21 +5,20 @@ public final class Message {
     private final User sender;
     private final User recipient;
 
-    public Message(String text, User sender, User recipient){
+    public Message(String text, User sender, User recipient) {
 
         this.text = text;
         this.sendingTime = System.currentTimeMillis();
         try {
-            this.sender = sender.clone();
-            this.recipient = recipient.clone();
+            this.sender = sender.clone().orElseThrow();
+            this.recipient = recipient.clone().orElseThrow();
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
         }
 
-
     }
 
-    public String getText(){
+    public String getText() {
         return text;
     }
 
@@ -30,7 +28,7 @@ public final class Message {
 
     public User getSender() {
         try {
-            return sender.clone();
+            return sender.clone().orElseThrow();
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
         }
@@ -39,7 +37,7 @@ public final class Message {
 
     public User getRecipient() {
         try {
-            return recipient.clone();
+            return recipient.clone().orElseThrow();
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
         }
