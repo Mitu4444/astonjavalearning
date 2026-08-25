@@ -1,20 +1,19 @@
 package module.two;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.net.URISyntaxException;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Objects;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws URISyntaxException {
 
-        String path = System.getProperty("user.dir");
+        //String path = System.getProperty("user.dir");
+        String path = Objects.requireNonNull(Main.class.getClassLoader().getResource("studentandbooks.txt")).getPath();
+
         System.out.println(path);
 
-
-        List<Student> students = new Parser("src/module/two/studentandbooks.txt").parsing();
+        List<Student> students = new Parser(path).parsing();
 
         students.stream()
                 .peek(System.out::println)

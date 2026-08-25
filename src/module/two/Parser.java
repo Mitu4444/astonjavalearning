@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -22,6 +21,18 @@ public class Parser {
         String line;
         HashSet<Student> students = new HashSet<Student>();
 
+        final int STUDENT_ID = 0;
+        final int FIRST_NAME = 1;
+        final int LAST_NAME = 2;
+
+        final int BOOK_NAME = 0;
+        final int BOOK_AUTHOR = 1;
+        final int YEAR_RELEASE = 2;
+        final int COUNT_PAGE = 3;
+
+        final int DATA_STUDENT_LENGTH = 3;
+        final int DATA_BOOK_LENGTH = 4;
+
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
 
             Student current = null;
@@ -29,20 +40,20 @@ public class Parser {
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
 
-                if (data.length == 3) {
-                    long studentId = Long.parseLong(data[0]);
-                    String firstName = data[1];
-                    String lastName = data[2];
+                if (data.length == DATA_STUDENT_LENGTH) {
+                    long studentId = Long.parseLong(data[STUDENT_ID]);
+                    String firstName = data[FIRST_NAME];
+                    String lastName = data[LAST_NAME];
 
                     current = new Student(studentId, firstName, lastName, new ArrayList<Book>());
                     students.add(current);
 
-                } else if (data.length == 4) {
+                } else if (data.length == DATA_BOOK_LENGTH) {
 
-                    String name = data[0];
-                    String author = data[1];
-                    int yearRelease = Integer.parseInt(data[2]);
-                    int countPage = Integer.parseInt(data[3]);
+                    String name = data[BOOK_NAME];
+                    String author = data[BOOK_AUTHOR];
+                    int yearRelease = Integer.parseInt(data[YEAR_RELEASE]);
+                    int countPage = Integer.parseInt(data[COUNT_PAGE]);
 
                     if (current == null) continue;
 

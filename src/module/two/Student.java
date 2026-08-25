@@ -49,7 +49,6 @@ public class Student {
 
     public void setBooks(List<Book> books) {
         this.books = Optional.ofNullable(books).orElse(new ArrayList<Book>());
-        ;
     }
 
     @Override
