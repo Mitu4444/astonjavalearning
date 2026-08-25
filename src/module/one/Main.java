@@ -1,4 +1,4 @@
-package moduleOne;
+package module.one;
 
 public class Main {
 
