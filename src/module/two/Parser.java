@@ -1,8 +1,6 @@
 package module.two;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -10,10 +8,10 @@ import java.util.List;
 
 public class Parser {
 
-    private final String filePath;
+    private final InputStream fileStream;
 
-    public Parser(final String filePath) {
-        this.filePath = filePath;
+    public Parser(final InputStream fileStream) {
+        this.fileStream = fileStream;
     }
 
     public List<Student> parsing() {
@@ -33,7 +31,7 @@ public class Parser {
         final int DATA_STUDENT_LENGTH = 3;
         final int DATA_BOOK_LENGTH = 4;
 
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(fileStream))) {
 
             Student current = null;
 
