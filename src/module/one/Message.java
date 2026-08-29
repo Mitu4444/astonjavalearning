@@ -1,3 +1,5 @@
+package module.one;
+
 public final class Message {
 
     private final String text;
