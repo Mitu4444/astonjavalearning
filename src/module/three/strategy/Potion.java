@@ -1,17 +1,22 @@
 package module.three.strategy;
 
-import module.three.strategy.PotionEffect;
+import org.jetbrains.annotations.NotNull;
 
-public abstract class Potion {
+import java.util.Optional;
 
-    public PotionEffect effect;
+public class Potion {
 
-    public Potion(){
+    private PotionEffect effect;
+
+    public Potion(PotionEffect effect){
+        this.effect = Optional.ofNullable(effect).orElse(new SuperMysteryEffect());
     }
 
-    public abstract void display();
+    public void setEffect(PotionEffect effect) {
+        this.effect = Optional.ofNullable(effect).orElse(new SuperMysteryEffect());
+    }
 
-    public void apply(){
+    public void drink(){
         effect.apply();
     }
 
