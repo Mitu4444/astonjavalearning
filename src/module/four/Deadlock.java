@@ -8,39 +8,33 @@ public class Deadlock {
     private static final Potion heal = new Potion(new HealingEffect());
     private static final Potion strength = new Potion(new StrengthEffect());
 
-    public static void main(String[] args){
-        Thread t1 = new Thread(() -> {
-            synchronized (heal){
-                heal.drink();
+    public static Thread startThread(Potion one, Potion two) {
+        return new Thread(() -> {
+            synchronized (one) {
+                one.drink();
                 try {
                     Thread.sleep(200);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                System.out.println("Trying to get strength...");
-                synchronized (strength){
-                    strength.drink();
+                System.out.println("Trying to get other potion...");
+                synchronized (two) {
+                    two.drink();
                     System.out.println("I HAVE THE POWER!!!");
                 }
             }
         });
+    }
 
-        Thread t2 = new Thread(() -> {
-            synchronized (strength){
-                strength.drink();
-                try {
-                    Thread.sleep(200);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                System.out.println("Trying to get heal...");
-                synchronized (heal){
-                    heal.drink();
-                }
-            }
-        });
+    public static void main(String[] args) throws InterruptedException {
+
+        Thread t1 = startThread(heal, strength);
+        Thread t2 = startThread(strength, heal);
 
         t1.start();
         t2.start();
+
+        t1.join();
+        t2.join();
     }
 }
